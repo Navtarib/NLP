@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Goal Setting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background-image: url("https://media.istockphoto.com/id/1328955938/photo/neuron-cell-close-up-view.jpg?b=1&s=612x612&w=0&k=20&c=oH45UMGTR2dHq3N-H6ta0ADtXkw71rQ1-QbWOSxSM6o=");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-family: "Merriweather", serif;
+            text-align: center;
+            /* margin-bottom: 20px; */
+            font-size: 36px; /* Adjusted for better readability */
+            text-shadow: 2px 2px 2px black;
+            font-weight: bolder;
+
+        }
+        p {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bolder;
+            font-style: italic;
+            /* margin: 5px 0; */
+            text-shadow: 2px 2px 2px black;
+
+        }
+        button {
+            display: block;
+            margin: 20px auto; /* Added margin for spacing */
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%; /* Make button full width */
+            max-width: 300px; /* Limit width on larger screens */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            text-align: center;
+            border: 4px solid white;
+            padding: 15px;
+            margin-top: 20px;
+            background-image: url("assets/bg.jpg");
+            border-radius: 5px;
+            display: none;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word; /* Ensure long text wraps */
+        }
+        .video {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            width: 60%;
+            max-width: 100%; /* Ensure video container is responsive */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto; /* Center video */
+        }
+        video {
+            width: 100%;
+            height: auto; /* Make video responsive */
+            border-radius: 24px; /* Optional: for styling */
+            border: 4px solid white;
+
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px; /* Slightly smaller title on mobile */
+            }
+            P{
+                font-size: 16px;
+            }
+            button {
+                padding: 10px; /* Adjust padding for smaller screens */
+                font-size: 16px; /* Slightly smaller font */
+            }
+            #results {
+                padding: 10px;
+            }
+            audio{
+                width:100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <marquee behavior="alternate" direction="right">developed by: Ali Raza & Naveed Khan</marquee>
+    <h1>Welcome To Neuro Linguistic Programming</h1>
+    <p>Want to achieve your goals? You've come to the right place.</p>
+    <p>Answer simple questions to satisfy your unconscious mind.</p>
+    <div class="video">
+        <video src="assets/mind1.mp4" poster="" autoplay muted loop></video>
+        <audio id="myAudio" src="assets/awaken-136824.mp3" autoplay loop controls>
+        </audio>    </div>
+    <button onclick="getInputs()">Start</button>
+
+    <div id="results"></div>
+
+    <script>
+        function getInputs() {
+            const inputs = [
+                { question: "Enter your name.", key: "name" },
+                { question: "Enter your age.", key: "age" },
+                { question: "Enter your present status.", key: "presentState" },
+                { question: "Enter your desired status.", key: "desireState" },
+                { question: `Why do you want to move from ?`, key: "reason" },
+                { question: "Is the goal to be measurable? (yes/no)", key: "measurable" },
+                { question: "Is the goal personal desire or a suggestion?", key: "meaningful" },
+                { question: "Is the idea of becoming realistic and achievable? (yes/no)", key: "achievable" },
+                { question: "Enter a deadline to accomplish your goal.", key: "deadLine" },
+                { question: "State a line of responsibility.", key: "responsibility" },
+                { question: "Write a burning motivation to reach your goal.", key: "yearning" },
+                { question: "Provide proof that indicates you are on the right path.", key: "evidence" },
+                { question: "Do you have control over your actions? (control/external)", key: "control" },
+                { question: "Who is your role model? Describe how they guide you.", key: "roleModel" },
+                { question: "Make plans A, B, C, D for adaptability.", key: "flexibility" },
+                { question: "How does your goal fit into your overall environment?", key: "ecology" }
+            ];
+
+            const responses = {};
+            for (let input of inputs) {
+                let answer;
+                do {
+                    answer = prompt(input.question.replace("?", responses[input.key - 1] || ""));
+                } while (!answer);
+                responses[input.key] = answer;
+            }
+
+            // Display results
+            const results = `
+            
+                <h2>Your Input Summary:</h2>
+                ${Object.entries(responses).map(([key, value]) => `
+                    <p><strong>${key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</strong> ${value}</p>
+                `).join('')}
+            `;
+
+            document.getElementById('results').innerHTML = results;
+            document.getElementById('results').style.display = 'block';
+        }
+    
+    
+        window.onload = function() {
+            const audio = document.getElementById('myAudio');
+            audio.play(); // Start playing the audio
+        };    </script>
+</body>
+</html>
